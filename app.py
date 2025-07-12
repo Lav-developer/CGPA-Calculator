@@ -4,7 +4,6 @@ import streamlit.components.v1 as components
 
 st.title("CGPA Calculator")
 
-# Custom CSS for background and table
 st.markdown(
     """
     <style>
@@ -94,7 +93,7 @@ if num_subjects:
             })
 
         df = pd.DataFrame(table_data)
-        df = df.reset_index(drop=True)  # This removes the DataFrame index
+        df = df.reset_index(drop=True)
 
         styled_df = df.style.set_properties(**{
             'text-align': 'center',

@@ -94,8 +94,8 @@ if num_subjects:
             })
 
         df = pd.DataFrame(table_data)
+        df = df.reset_index(drop=True)  # This removes the DataFrame index
 
-        # Style the table
         styled_df = df.style.set_properties(**{
             'text-align': 'center',
             'background-color': '#232526',
@@ -126,51 +126,6 @@ if num_subjects:
                 "- Total Credits = Sum of credits for all subjects\n"
                 "- Grade Point is assigned based on the letter grade you entered."
             )
-
-            def show_modal(message, icon):
-                modal_code = f"""
-                <div id="customModal" style="
-                    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-                    background: rgba(0,0,0,0.7); backdrop-filter: blur(3px);
-                    display: flex; align-items: center; justify-content: center; z-index: 99999;">
-                  <div style="
-                    background: #18191a; color: #fff; padding: 60px 60px 32px 60px; border-radius: 32px;
-                    min-width: 400px; max-width: 95vw; text-align: center; position: relative;
-                    box-shadow: 0 12px 48px #000c; border: 3px solid #00ffd0;">
-                    <span id="closeModal" style="
-                      position: absolute; top: 18px; right: 32px; font-size: 40px; cursor: pointer; color: #00ffd0;">&times;</span>
-                    <div style="font-size: 60px; margin-bottom: 18px;">{icon}</div>
-                    <div style="font-size: 32px; margin: 24px 0 32px 0; font-weight: bold;">{message}</div>
-                    <div id="countdown" style="font-size: 22px; color: #00ffd0; margin-top: 18px;">
-                        This will close in <span id='timer'>10</span> seconds.
-                    </div>
-                  </div>
-                </div>
-                <script>
-                let seconds = 10;
-                let timer = setInterval(function() {{
-                    seconds -= 1;
-                    document.getElementById('timer').innerText = seconds;
-                    if (seconds <= 0) {{
-                        clearInterval(timer);
-                        document.getElementById('customModal').style.display = 'none';
-                    }}
-                }}, 1000);
-                document.getElementById('closeModal').onclick = function() {{
-                    document.getElementById('customModal').style.display = 'none';
-                    clearInterval(timer);
-                }};
-                </script>
-                """
-                components.html(modal_code, height=500)
-
-            # Motivational or congratulatory message
-            if cgpa < 7.5:
-                show_modal("💡 Keep pushing! Your CGPA can improve with consistent effort. Stay motivated and keep learning! 🚀", "💡")
-            elif cgpa >= 9.0:
-                show_modal("🏆 Congratulations! You have achieved an outstanding CGPA. Keep up the excellent work! 🌟", "🏆")
-            else:
-                show_modal("👏 Good job! Your CGPA is above average. Keep striving for excellence!", "👏")
 
         st.markdown("<hr>", unsafe_allow_html=True)
         st.markdown("<div style='text-align:center;color:#888;'>Made with ❤️ by <b>Lav Kush</b></div>", unsafe_allow_html=True)
